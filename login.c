@@ -28,7 +28,7 @@ int imprimeCabecalho(char *Cabecalho){
 
 // Função para operação de Login.
 int login(){
-	
+
 	imprimeCabecalho("Logue na sua conta:");
 	printf("\nUsuario:\n");
 	printf("-> ");
@@ -55,17 +55,15 @@ int registra(){
 	printf("-Use somente letras e numeros!\n");
 	printf("-Nao use caracteres especiais!\n");
 	printf("-Nao coloque espacos!\n");
-	printf("-Letras maiusculas ou minusculas fazem diferenca!");
-	printf("\n-> ");
+	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
 	scanf("%s",Usuario);
-	printf("\n");
-	printf("\n1) Senha | Defina sua senha:\n");
+
+	printf("\n\n1) Senha | Defina sua senha:\n");
 	printf("-Limite de 30 caracteres!\n");
 	printf("-Use somente letras e numeros!\n");
 	printf("-Nao use caracteres especiais!\n");
 	printf("-Nao coloque espacos!\n");
-	printf("-Letras maiusculas ou minusculas fazem diferenca!");
-	printf("\n-> ");
+	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
 	scanf("%s",Senha);
 			
 	imprimeCabecalho("Registro concluído");
@@ -89,17 +87,16 @@ int verificaLogin(){
 int main(){
 	
 	//Variaveis para operação de Login ou Registro.
-	int LogOuCad;
+	int LoginOuCadastro;
 	
 	
 	imprimeCabecalho("AREA DE LOGIN");
 	
 	printf("\nDeseja fazer login ou registrar-se?\n\n");
 	printf("Escolha [1] -> para CRIAR CONTA\n");
-	printf("Escolha [2] -> para LOGAR\n");
-	
-	printf("\n-> ");
-	scanf("%i",&LogOuCad);
+	printf("Escolha [2] -> para LOGAR\n\n-> ");
+
+	scanf("%i",&LoginOuCadastro);
 	
 	
 	// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
@@ -108,7 +105,7 @@ int main(){
 	
 	
 	// Código das operações de Registro e Login.
-	switch (LogOuCad){
+	switch (LoginOuCadastro){
 		case 1:
 			fp1 = fopen("registros.txt","r");
 			if	(fp1 == NULL){
