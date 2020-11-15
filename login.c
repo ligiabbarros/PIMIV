@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <stdbool.h>
 
 // Variáveis Globais para Senhas/Usuarios de login e registro.
 char Usuario[30] = "";
@@ -20,7 +20,12 @@ char IDPWL[60] = "";
 FILE *fp1;
 
 // Funcao para imprimir cabeçalho
-int imprimeCabecalho(char *Cabecalho){
+int imprimeCabecalho(char *Cabecalho, bool ClearScreen){
+
+	if (ClearScreen) {
+		system("clear");
+	}
+
 	printf("\n--------------------------------\n");
 	printf("\n%s\n", Cabecalho);
 	printf("\n--------------------------------\n\n");
@@ -35,14 +40,14 @@ int registraUsuario(){
 
 	if (fp1 == NULL){
 
-		imprimeCabecalho("Crie sua conta:");
+		imprimeCabecalho("Crie sua conta:", true);
 
 		printf("\n1) Usuario | Defina seu usuario:\n");
 		printf("-Limite de 30 caracteres!\n");
 		printf("-Use somente letras e numeros!\n");
 		printf("-Nao use caracteres especiais!\n");
 		printf("-Nao coloque espacos!\n");
-		printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
+		printf("-Letras maiusculas ou minusculas fazem diferenca!\n\n-> ");
 		scanf("%s",Usuario);
 
 		printf("\n\n1) Senha | Defina sua senha:\n");
@@ -50,7 +55,7 @@ int registraUsuario(){
 		printf("-Use somente letras e numeros!\n");
 		printf("-Nao use caracteres especiais!\n");
 		printf("-Nao coloque espacos!\n");
-		printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
+		printf("-Letras maiusculas ou minusculas fazem diferenca!\n\n-> ");
 		scanf("%s",Senha);
 
 		strcpy(IDPW,Usuario);
@@ -60,10 +65,10 @@ int registraUsuario(){
 		fputs(IDPW, fp1);
 		fclose(fp1);
 
-		imprimeCabecalho("Registro concluído");
+		imprimeCabecalho("Registro concluído", true);
 
 	}else{
-		imprimeCabecalho("ERRO: Voce ja esta registrado!");
+		imprimeCabecalho("ERRO: Voce ja esta registrado!", true);
 	}
 
 	return 0;
@@ -85,7 +90,7 @@ int logaUsuario(){
 	fgets(IDPW, 60, fp1);
 
 	while (strcmp(IDPW,IDPWL) != 0) {
-		imprimeCabecalho("Logue na sua conta:");
+		imprimeCabecalho("Logue na sua conta:", false);
 		printf("\nUsuario:\n");
 		printf("-> ");
 		scanf("%s",UsuarioL);
@@ -98,11 +103,11 @@ int logaUsuario(){
 		strcat(IDPWL, SenhaL);
 
 		if (strcmp(IDPW,IDPWL) != 0) {
-			imprimeCabecalho("Usuário ou senha inválidos.\n\nTente novamente.");
+			imprimeCabecalho("Usuário ou senha inválidos.\n\nTente novamente.", true);
 		}
 	}
 
-	imprimeCabecalho("Login Efetuado!");
+	imprimeCabecalho("Login Efetuado!", true);
 	
 	return 0;
 	
@@ -115,7 +120,7 @@ int main(){
 	int RegistraOuLoga;
 	
 	
-	imprimeCabecalho("AREA DE LOGIN");
+	imprimeCabecalho("AREA DE LOGIN", true);
 	
 	printf("\nDeseja fazer login ou registrar-se?\n\n");
 	printf("Escolha [1] -> para REGISTRAR CONTA\n");
