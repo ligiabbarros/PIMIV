@@ -83,7 +83,7 @@ int logaUsuario(){
 int main(){
 	
 	//Variaveis para operação de Login ou Registro.
-	int LoginOuRegistro;
+	int RegistraOuLoga;
 	
 	
 	imprimeCabecalho("AREA DE LOGIN");
@@ -92,14 +92,14 @@ int main(){
 	printf("Escolha [1] -> para REGISTRAR CONTA\n");
 	printf("Escolha [2] -> para LOGAR\n\n-> ");
 
-	scanf("%i",&LoginOuRegistro);
+	scanf("%i",&RegistraOuLoga);
 	
 	
 	// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
 	FILE *fp1;
 
 	// Código das operações de Registro e Login.
-	switch (LoginOuRegistro){
+	switch (RegistraOuLoga){
 		case 1:
 			fp1 = fopen("registros.txt","r");
 			if	(fp1 == NULL){
