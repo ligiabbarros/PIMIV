@@ -16,6 +16,8 @@ char SenhaL[30] = "";
 char IDPW[60] = "";
 char IDPWL[60] = "";
 
+// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
+FILE *fp1;
 
 // Funcao para imprimir cabeçalho
 int imprimeCabecalho(char *Cabecalho){
@@ -29,32 +31,59 @@ int imprimeCabecalho(char *Cabecalho){
 // Função para registrar usuário
 int registraUsuario(){
 
-	imprimeCabecalho("Crie sua conta:");
+	fp1 = fopen("registros.txt","r");
 
-	printf("\n1) Usuario | Defina seu usuario:\n");
-	printf("-Limite de 30 caracteres!\n");
-	printf("-Use somente letras e numeros!\n");
-	printf("-Nao use caracteres especiais!\n");
-	printf("-Nao coloque espacos!\n");
-	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
-	scanf("%s",Usuario);
+	if (fp1 == NULL){
 
-	printf("\n\n1) Senha | Defina sua senha:\n");
-	printf("-Limite de 30 caracteres!\n");
-	printf("-Use somente letras e numeros!\n");
-	printf("-Nao use caracteres especiais!\n");
-	printf("-Nao coloque espacos!\n");
-	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
-	scanf("%s",Senha);
+		imprimeCabecalho("Crie sua conta:");
 
-	imprimeCabecalho("Registro concluído");
+		printf("\n1) Usuario | Defina seu usuario:\n");
+		printf("-Limite de 30 caracteres!\n");
+		printf("-Use somente letras e numeros!\n");
+		printf("-Nao use caracteres especiais!\n");
+		printf("-Nao coloque espacos!\n");
+		printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
+		scanf("%s",Usuario);
+
+		printf("\n\n1) Senha | Defina sua senha:\n");
+		printf("-Limite de 30 caracteres!\n");
+		printf("-Use somente letras e numeros!\n");
+		printf("-Nao use caracteres especiais!\n");
+		printf("-Nao coloque espacos!\n");
+		printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
+		scanf("%s",Senha);
+
+		strcpy(IDPW,Usuario);
+		strcat(IDPW,Senha);
+
+		fp1 = fopen("registros.txt","w");
+		fputs(IDPW, fp1);
+		fclose(fp1);
+
+		imprimeCabecalho("Registro concluído");
+
+	}else{
+		imprimeCabecalho("ERRO: Voce ja esta registrado!");
+	}
 
 	return 0;
 }
 
 // Função para logar usuário
 int logaUsuario(){
+
+	fp1 = fopen("registros.txt", "r");
+
+	if (fp1 == NULL){
+		printf("\nERRO: Nao ha um usuario registrado ainda!\n");
+		printf("Impossivel efetuar LOGIN\n");
+		printf("Iniciando registro...\n");
+		registraUsuario();
+	}
 	
+	fp1 = fopen("registros.txt", "r");
+	fgets(IDPW, 60, fp1);
+
 	while (strcmp(IDPW,IDPWL) != 0) {
 		imprimeCabecalho("Logue na sua conta:");
 		printf("\nUsuario:\n");
@@ -93,66 +122,15 @@ int main(){
 	printf("Escolha [2] -> para LOGAR\n\n-> ");
 
 	scanf("%i",&RegistraOuLoga);
-	
-	
-	// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
-	FILE *fp1;
+
 
 	// Código das operações de Registro e Login.
 	switch (RegistraOuLoga){
 		case 1:
-			fp1 = fopen("registros.txt","r");
-			if	(fp1 == NULL){
-				fp1 = fopen("registros.txt","w");
-				registraUsuario();
-				fclose(fp1);
-				
-				fp1 = fopen("registros.txt","a");
-				strcpy(IDPW,Usuario);
-				strcat(IDPW,Senha);
-				
-				fputs(IDPW, fp1);
-				
-				fclose(fp1);
-				
-			}else{
-				imprimeCabecalho("ERRO: Voce ja esta registrado!");
-
-				fgets(IDPW, 60 ,fp1);
-				
-				fclose(fp1);
-			}
-		
-			logaUsuario();
-
+			registraUsuario();
 			break;
 		case 2:
-			fp1 = fopen("registros.txt", "r");
-			if (fp1 == NULL){
-				printf("\nERRO: Nao ha um usuario registrado ainda!\n");
-				printf("Impossivel efetuar LOGIN\n");
-				printf("Iniciando registro...\n");
-				registraUsuario();
-				fclose(fp1);
-				
-				fp1 = fopen("registros.txt","w");
-				fclose(fp1);
-				
-				fp1 = fopen("registros.txt","a");
-				strcpy(IDPW,Usuario);
-				strcat(IDPW,Senha);
-				
-				fputs(IDPW, fp1);
-				
-				fclose(fp1);
-				
-			}
-			
-			fp1 = fopen("registros.txt", "r");
-			fgets(IDPW, 60, fp1);
-			
 			logaUsuario();
-			
 			break;
 		default:
 			printf("\nVoce escolheu uma opcao invalida!\n");
