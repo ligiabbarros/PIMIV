@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 // Variáveis Globais para Senhas/Usuarios de login e registro.
@@ -16,11 +17,19 @@ char IDPW[60] = "";
 char IDPWL[60] = "";
 
 
+// Funcao para imprimir cabeçalho
+int imprimeCabecalho(char *Cabecalho){
+	printf("\n--------------------------------\n");
+	printf("\n%s\n", Cabecalho);
+	printf("\n--------------------------------\n");
+
+	return 0;
+}
+
 // Função para operação de Login.
 int login(){
 	
-	printf("\n--------------------------------\n");
-	printf("\n        Logue na sua conta:\n");
+	imprimeCabecalho("Logue na sua conta:");
 	printf("\nUsuario:\n");
 	printf("-> ");
 	scanf("%s",UsuarioL);
@@ -39,8 +48,8 @@ int login(){
 // Função para operação de Registro.
 int registra(){
 	
-	printf("\n--------------------------------\n");
-	printf("        Crie sua conta:\n");
+	imprimeCabecalho("Crie sua conta:");
+
 	printf("\n1) Usuario | Defina seu usuario:\n");
 	printf("-Limite de 30 caracteres!\n");
 	printf("-Use somente letras e numeros!\n");
@@ -59,7 +68,7 @@ int registra(){
 	printf("\n-> ");
 	scanf("%s",Senha);
 			
-	printf("\nRegistro Concluido\n");
+	imprimeCabecalho("Registro concluído");
 	
 	return 0;
 } 
@@ -68,8 +77,7 @@ int registra(){
 int verificaLogin(){
 
 	while (strcmp(IDPW,IDPWL) != 0) {
-		printf("\nUsuario ou Senha invalidos!\n");
-		printf("Tente Novamente.");
+		imprimeCabecalho("Usuario ou Senha invalidos. Tente Novamente.");
 		login();
 	}
 
@@ -84,11 +92,9 @@ int main(){
 	int LogOuCad;
 	
 	
-	printf("===================================\n");
-	printf("           AREA DE LOGIN\n");
-	printf("===================================\n");
+	imprimeCabecalho("AREA DE LOGIN");
 	
-	printf("\nDeseja fazer login ou registrar-se?\n");
+	printf("\nDeseja fazer login ou registrar-se?\n\n");
 	printf("Escolha [1] -> para CRIAR CONTA\n");
 	printf("Escolha [2] -> para LOGAR\n");
 	
@@ -119,9 +125,8 @@ int main(){
 				fclose(fp1);
 				
 			}else{
-				printf("\n--------------------------------\n");
-				printf("\nERRO: Voce ja esta registrado!\n");
-				
+				imprimeCabecalho("ERRO: Voce ja esta registrado!");
+
 				fgets(IDPW, 60 ,fp1);
 				
 				fclose(fp1);
@@ -129,7 +134,7 @@ int main(){
 		
 			login();
 			verificaLogin();
-			printf("\nLogin Efetuado");
+			imprimeCabecalho("Login Efetuado!");
 			break;
 		case 2:
 			fp1 = fopen("registros.txt", "r");
