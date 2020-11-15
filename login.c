@@ -1,6 +1,6 @@
-==============================================
+/* ==============================================
    	PIM IV  |  Registro e Login
-==============================================
+============================================== */
 
 
 #include <stdio.h>
@@ -66,15 +66,13 @@ int registra(){
 
 // Função para quando houver erro no login.
 int errou(){
-	
-	if (strcmp(IDPW,IDPWL) != 0){
-				do{
-					printf("\nUsuario ou Senha invalidos!\n");
-					printf("Tente Novamente.");
-					login();
-				} while (strcmp(IDPW,IDPWL) != 0);
-			}
-	
+
+	while (strcmp(IDPW,IDPWL) != 0) {
+		printf("\nUsuario ou Senha invalidos!\n");
+		printf("Tente Novamente.");
+		login();
+	}
+
 	return 0;
 }
 
