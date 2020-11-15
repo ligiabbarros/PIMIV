@@ -21,25 +21,33 @@ char IDPWL[60] = "";
 int imprimeCabecalho(char *Cabecalho){
 	printf("\n--------------------------------\n");
 	printf("\n%s\n", Cabecalho);
-	printf("\n--------------------------------\n");
+	printf("\n--------------------------------\n\n");
 
 	return 0;
 }
 
 // Função para operação de Login.
 int login(){
-
-	imprimeCabecalho("Logue na sua conta:");
-	printf("\nUsuario:\n");
-	printf("-> ");
-	scanf("%s",UsuarioL);
-	printf("\n");
-	printf("\nSenha:\n");
-	printf("-> ");
-	scanf("%s",SenhaL);
 	
-	strcpy(IDPWL, UsuarioL);
-	strcat(IDPWL, SenhaL);
+	while (strcmp(IDPW,IDPWL) != 0) {
+		imprimeCabecalho("Logue na sua conta:");
+		printf("\nUsuario:\n");
+		printf("-> ");
+		scanf("%s",UsuarioL);
+		printf("\n");
+		printf("\nSenha:\n");
+		printf("-> ");
+		scanf("%s",SenhaL);
+
+		strcpy(IDPWL, UsuarioL);
+		strcat(IDPWL, SenhaL);
+
+		if (strcmp(IDPW,IDPWL) != 0) {
+			imprimeCabecalho("Usuário ou senha inválidos.\n\nTente novamente.");
+		}
+	}
+
+	imprimeCabecalho("Login Efetuado!");
 	
 	return 0;
 	
@@ -67,21 +75,9 @@ int registra(){
 	scanf("%s",Senha);
 			
 	imprimeCabecalho("Registro concluído");
-	
-	return 0;
-} 
-
-// Função para verificar o login
-int verificaLogin(){
-
-	while (strcmp(IDPW,IDPWL) != 0) {
-		imprimeCabecalho("Usuario ou Senha invalidos. Tente Novamente.");
-		login();
-	}
 
 	return 0;
 }
-
 
 // Código Principal.
 int main(){
@@ -130,8 +126,7 @@ int main(){
 			}
 		
 			login();
-			verificaLogin();
-			imprimeCabecalho("Login Efetuado!");
+
 			break;
 		case 2:
 			fp1 = fopen("registros.txt", "r");
@@ -159,9 +154,6 @@ int main(){
 			fgets(IDPW, 60, fp1);
 			
 			login();
-			verificaLogin();
-			
-			printf("\nLogin Efetuado");
 			
 			break;
 		default:
