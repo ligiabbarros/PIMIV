@@ -27,7 +27,7 @@ int imprimeCabecalho(char *Cabecalho){
 }
 
 // Função para operação de Login.
-int login(){
+int logaUsuario(){
 	
 	while (strcmp(IDPW,IDPWL) != 0) {
 		imprimeCabecalho("Logue na sua conta:");
@@ -54,7 +54,7 @@ int login(){
 }
 
 // Função para operação de Registro.
-int registra(){
+int registraUsuario(){
 	
 	imprimeCabecalho("Crie sua conta:");
 
@@ -83,30 +83,28 @@ int registra(){
 int main(){
 	
 	//Variaveis para operação de Login ou Registro.
-	int LoginOuCadastro;
+	int LoginOuRegistro;
 	
 	
 	imprimeCabecalho("AREA DE LOGIN");
 	
 	printf("\nDeseja fazer login ou registrar-se?\n\n");
-	printf("Escolha [1] -> para CRIAR CONTA\n");
+	printf("Escolha [1] -> para REGISTRAR CONTA\n");
 	printf("Escolha [2] -> para LOGAR\n\n-> ");
 
-	scanf("%i",&LoginOuCadastro);
+	scanf("%i",&LoginOuRegistro);
 	
 	
 	// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
 	FILE *fp1;
-	
-	
-	
+
 	// Código das operações de Registro e Login.
-	switch (LoginOuCadastro){
+	switch (LoginOuRegistro){
 		case 1:
 			fp1 = fopen("registros.txt","r");
 			if	(fp1 == NULL){
 				fp1 = fopen("registros.txt","w");
-				registra();
+				registraUsuario();
 				fclose(fp1);
 				
 				fp1 = fopen("registros.txt","a");
@@ -125,7 +123,7 @@ int main(){
 				fclose(fp1);
 			}
 		
-			login();
+			logaUsuario();
 
 			break;
 		case 2:
@@ -134,7 +132,7 @@ int main(){
 				printf("\nERRO: Nao ha um usuario registrado ainda!\n");
 				printf("Impossivel efetuar LOGIN\n");
 				printf("Iniciando registro...\n");
-				registra();
+				registraUsuario();
 				fclose(fp1);
 				
 				fp1 = fopen("registros.txt","w");
@@ -153,7 +151,7 @@ int main(){
 			fp1 = fopen("registros.txt", "r");
 			fgets(IDPW, 60, fp1);
 			
-			login();
+			logaUsuario();
 			
 			break;
 		default:
