@@ -64,8 +64,8 @@ int registra(){
 	return 0;
 } 
 
-// Função para quando houver erro no login.
-int errou(){
+// Função para verificar o login
+int verificaLogin(){
 
 	while (strcmp(IDPW,IDPWL) != 0) {
 		printf("\nUsuario ou Senha invalidos!\n");
@@ -128,7 +128,7 @@ int main(){
 			}
 		
 			login();
-			errou();
+			verificaLogin();
 			printf("\nLogin Efetuado");
 			break;
 		case 2:
@@ -157,7 +157,7 @@ int main(){
 			fgets(IDPW, 60, fp1);
 			
 			login();
-			errou();
+			verificaLogin();
 			
 			printf("\nLogin Efetuado");
 			
