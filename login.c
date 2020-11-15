@@ -26,7 +26,33 @@ int imprimeCabecalho(char *Cabecalho){
 	return 0;
 }
 
-// Função para operação de Login.
+// Função para registrar usuário
+int registraUsuario(){
+
+	imprimeCabecalho("Crie sua conta:");
+
+	printf("\n1) Usuario | Defina seu usuario:\n");
+	printf("-Limite de 30 caracteres!\n");
+	printf("-Use somente letras e numeros!\n");
+	printf("-Nao use caracteres especiais!\n");
+	printf("-Nao coloque espacos!\n");
+	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
+	scanf("%s",Usuario);
+
+	printf("\n\n1) Senha | Defina sua senha:\n");
+	printf("-Limite de 30 caracteres!\n");
+	printf("-Use somente letras e numeros!\n");
+	printf("-Nao use caracteres especiais!\n");
+	printf("-Nao coloque espacos!\n");
+	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
+	scanf("%s",Senha);
+
+	imprimeCabecalho("Registro concluído");
+
+	return 0;
+}
+
+// Função para logar usuário
 int logaUsuario(){
 	
 	while (strcmp(IDPW,IDPWL) != 0) {
@@ -51,32 +77,6 @@ int logaUsuario(){
 	
 	return 0;
 	
-}
-
-// Função para operação de Registro.
-int registraUsuario(){
-	
-	imprimeCabecalho("Crie sua conta:");
-
-	printf("\n1) Usuario | Defina seu usuario:\n");
-	printf("-Limite de 30 caracteres!\n");
-	printf("-Use somente letras e numeros!\n");
-	printf("-Nao use caracteres especiais!\n");
-	printf("-Nao coloque espacos!\n");
-	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
-	scanf("%s",Usuario);
-
-	printf("\n\n1) Senha | Defina sua senha:\n");
-	printf("-Limite de 30 caracteres!\n");
-	printf("-Use somente letras e numeros!\n");
-	printf("-Nao use caracteres especiais!\n");
-	printf("-Nao coloque espacos!\n");
-	printf("-Letras maiusculas ou minusculas fazem diferenca!\n-> ");
-	scanf("%s",Senha);
-			
-	imprimeCabecalho("Registro concluído");
-
-	return 0;
 }
 
 // Código Principal.
