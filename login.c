@@ -16,8 +16,8 @@ char SenhaL[30] = "";
 char IDPW[60] = "";
 char IDPWL[60] = "";
 
-// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
-FILE *fp1;
+// Variavel do tipo ponteiro que aponta para o arquivo txt dos registros.
+FILE *filePointerRegistros;
 
 // Funcao para imprimir cabeçalho
 int imprimeCabecalho(char *Cabecalho, bool ClearScreen){
@@ -36,9 +36,9 @@ int imprimeCabecalho(char *Cabecalho, bool ClearScreen){
 // Função para registrar usuário
 int registraUsuario(){
 
-	fp1 = fopen("registros.txt","r");
+	filePointerRegistros = fopen("registros.txt","r");
 
-	if (fp1 == NULL){
+	if (filePointerRegistros == NULL){
 
 		imprimeCabecalho("Crie sua conta:", true);
 
@@ -61,9 +61,9 @@ int registraUsuario(){
 		strcpy(IDPW,Usuario);
 		strcat(IDPW,Senha);
 
-		fp1 = fopen("registros.txt","w");
-		fputs(IDPW, fp1);
-		fclose(fp1);
+		filePointerRegistros = fopen("registros.txt","w");
+		fputs(IDPW, filePointerRegistros);
+		fclose(filePointerRegistros);
 
 		imprimeCabecalho("Registro concluído", true);
 
@@ -77,17 +77,17 @@ int registraUsuario(){
 // Função para logar usuário
 int logaUsuario(){
 
-	fp1 = fopen("registros.txt", "r");
+	filePointerRegistros = fopen("registros.txt", "r");
 
-	if (fp1 == NULL){
+	if (filePointerRegistros == NULL){
 		printf("\nERRO: Nao ha um usuario registrado ainda!\n");
 		printf("Impossivel efetuar LOGIN\n");
 		printf("Iniciando registro...\n");
 		registraUsuario();
 	}
 	
-	fp1 = fopen("registros.txt", "r");
-	fgets(IDPW, 60, fp1);
+	filePointerRegistros = fopen("registros.txt", "r");
+	fgets(IDPW, 60, filePointerRegistros);
 
 	while (strcmp(IDPW,IDPWL) != 0) {
 		imprimeCabecalho("Logue na sua conta:", false);
@@ -142,6 +142,6 @@ int main(){
 			printf("Programa Encerrado\n");
 			break;
 	}
-	
+
 	return 0;
 }
