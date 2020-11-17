@@ -123,10 +123,11 @@ int logaUsuario(){
 
 		if (strcmp(IDPW,IDPWL) != 0) {
 			imprimeCabecalho("Usuário ou senha inválidos.\n\nTente novamente.", true);
-		}
+		} 
 	}
 
 	imprimeCabecalho("Login Efetuado!", true);
+	
 	
 	return 0;
 	
@@ -135,7 +136,7 @@ int logaUsuario(){
 // Função para cadastrar paciente
 int cadastraPaciente(){
 
-	filePointerRegistros = fopen("pacientes.txt","r");
+	filePointerPacientes = fopen("pacientes.txt","r");
 
 	if (filePointerPacientes == NULL){
 
@@ -220,7 +221,7 @@ int main(){
 			break;
 	}
 
-	cadastraPaciente();
+	
 
 	return 0;
 }
