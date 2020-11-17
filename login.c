@@ -17,19 +17,19 @@ char IDPW[60] = "";
 char IDPWL[60] = "";
 
 // Variáveis Globais para cadastro de pacientes.
-char 		Nome[30] = "";
-short int	CPF = 0;
-short int	Telefone = 0;
-char 		Rua[30] = "";
-short int 	Numero = 0;
-char 		Bairro[15] = "";
-char 		Cidade[15] = "";
-char 		Estado[2] = "";
-short int 	CEP = 0;
-char 		DataDiagnostico[8] = "";
-char 		DataNascimento[8] = "";
-char 		Email[30] = "";
-char 		Comorbidades[60] = "";
+char Nome[30] = "";
+char CPF[11] = "";
+char Telefone[11] = "";
+char Rua[30] = "";
+char Numero[5] = "";
+char Bairro[15] = "";
+char Cidade[15] = "";
+char Estado[2] = "";
+char CEP[8] = "";
+char DataDiagnostico[8] = "";
+char DataNascimento[8] = "";
+char Email[30] = "";
+char Comorbidades[60] = "";
 
 // Variavel do tipo ponteiro que aponta para o arquivo txt dos registros.
 FILE *filePointerRegistros;
@@ -132,6 +132,64 @@ int logaUsuario(){
 	
 }
 
+// Função para cadastrar paciente
+int cadastraPaciente(){
+
+	filePointerRegistros = fopen("pacientes.txt","r");
+
+	if (filePointerPacientes == NULL){
+
+		imprimeCabecalho("Cadastro de paciente", true);
+
+		printf("\nNome completo:\n-> ");
+		scanf("%s",Nome);
+		printf("\nCPF:\n\n-> ");
+		scanf("%s",CPF);
+		printf("\nTelefone:\n\n-> ");
+		scanf("%s",Telefone);
+		printf("\nRua:\n\n-> ");
+		scanf("%s",Rua);
+		printf("\nNumero:\n\n-> ");
+		scanf("%s",Numero);
+		printf("\nBairro:\n\n-> ");
+		scanf("%s",Bairro);
+		printf("\nCidade:\n\n-> ");
+		scanf("%s",Cidade);
+		printf("\nEstado:\n\n-> ");
+		scanf("%s",Estado);
+		printf("\nCEP:\n\n-> ");
+		scanf("%s",CEP);
+		printf("\nData de nascimento:\n\n-> ");
+		scanf("%s",DataNascimento);
+		printf("\nData do diagnostico:\n\n-> ");
+		scanf("%s",DataDiagnostico);
+		printf("\nEmail:\n\n-> ");
+		scanf("%s",Email);
+		printf("\nComorbidades:\n\n-> ");
+		scanf("%s",Comorbidades);
+
+		filePointerPacientes = fopen("pacientes.txt", "a");
+		fputs(Nome, filePointerPacientes);
+		fputs(CPF, filePointerPacientes);
+		fputs(Telefone, filePointerPacientes);
+		fputs(Rua, filePointerPacientes);
+		fputs(Numero, filePointerPacientes);
+		fputs(Bairro, filePointerPacientes);
+		fputs(Cidade, filePointerPacientes);
+		fputs(Estado, filePointerPacientes);
+		fputs(CEP, filePointerPacientes);
+		fputs(DataNascimento, filePointerPacientes);
+		fputs(DataDiagnostico, filePointerPacientes);
+		fputs(Email, filePointerPacientes);
+		fputs(Comorbidades, filePointerPacientes);
+		fclose(filePointerPacientes);
+	}else{
+		imprimeCabecalho("ERRO: Paciente já cadastrado.", true);
+	}
+
+	return 0;
+}
+
 // Código Principal.
 int main(){
 	
@@ -161,6 +219,8 @@ int main(){
 			printf("Programa Encerrado\n");
 			break;
 	}
+
+	cadastraPaciente();
 
 	return 0;
 }
