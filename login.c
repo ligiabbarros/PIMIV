@@ -16,8 +16,27 @@ char SenhaL[30] = "";
 char IDPW[60] = "";
 char IDPWL[60] = "";
 
+// Variáveis Globais para cadastro de pacientes.
+char 		Nome[30] = "";
+short int	CPF = 0;
+short int	Telefone = 0;
+char 		Rua[30] = "";
+short int 	Numero = 0;
+char 		Bairro[15] = "";
+char 		Cidade[15] = "";
+char 		Estado[2] = "";
+short int 	CEP = 0;
+char 		DataDiagnostico[8] = "";
+char 		DataNascimento[8] = "";
+char 		Email[30] = "";
+char 		Comorbidades[60] = "";
+
 // Variavel do tipo ponteiro que aponta para o arquivo txt dos registros.
 FILE *filePointerRegistros;
+
+// Variavel do tipo ponteiro que aponta para o arquivo txt de cadastro de
+// pacientes
+FILE *filePointerPacientes;
 
 // Funcao para imprimir cabeçalho
 int imprimeCabecalho(char *Cabecalho, bool ClearScreen){
