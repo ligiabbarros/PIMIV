@@ -221,7 +221,7 @@ int main(){
 			break;
 	}
 
-	
+	cadastraPaciente();
 
 	return 0;
 }
