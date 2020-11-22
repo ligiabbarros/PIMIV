@@ -1,16 +1,16 @@
-l
-s
-s
-s
-sd
-s
-sd
-s
-sd
-sds
-d
-sds
-dsd
-ssd
-sd
-sd
+Fulano de tal
+70323898378
+11953238909
+Rua bonita
+89
+Sem complemento
+Bairro danado de bao
+Sao Joaquim
+PA
+01221020
+28
+02
+1982
+fulano@gmail.com
+20/10/2020
+todas
