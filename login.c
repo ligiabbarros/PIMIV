@@ -41,9 +41,15 @@ FILE *filePointerRegistros;
 // pacientes
 FILE *filePointerPacientes;
 
-//buffer pra remover linha 
-void removerNewLine(char* buffer){
-    buffer[strcspn(buffer, "\r\n")] = 0;
+
+
+//remover histórico buffer
+void limpaStdin(void)
+{
+   int c;
+   do {
+       c = getchar();
+   } while (c != '\n' && c != EOF);
 }
 
 // Funcao para imprimir cabeçalho
@@ -150,11 +156,12 @@ int cadastraPaciente(){
 
 		imprimeCabecalho("Cadastro de paciente", true);
 
+		limpaStdin();
 	    printf("Digite os dados do paciente\n");
         printf("Nome: ");
         fgets(nome, sizeof nome, stdin);
         removerNewLine(nome);
-		
+
         printf("\n");
 
         printf("CPF (sem pontos ou tracos): ");
