@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 // Variáveis Globais para Senhas/Usuarios de login e registro.
 char Usuario[30] = "";
@@ -41,6 +42,10 @@ FILE *filePointerRegistros;
 // pacientes
 FILE *filePointerPacientes;
 
+// Variavel do tipo ponteiro que aponta para o arquivo txt de relatório de
+// pacientes
+FILE *filePointerRelatoriopacientes;
+
 //limpa string
 const char * removeNL(char *s) {
 	while (*s) {
@@ -67,11 +72,7 @@ void removerNewLine(char* buffer){
 }
 
 // Funcao para imprimir cabeçalho
-int imprimeCabecalho(char *Cabecalho, bool ClearScreen){
-
-	if (ClearScreen) {
-		system("clear");
-	}
+int imprimeEmDestaque(char *Cabecalho){
 
 	printf("\n--------------------------------\n");
 	printf("\n%s\n", Cabecalho);
@@ -87,7 +88,7 @@ int registraUsuario(){
 
 	if (filePointerRegistros == NULL){
 
-		imprimeCabecalho("Crie sua conta:", true);
+		imprimeEmDestaque("Crie sua conta:");
 
 		printf("\n1) Usuario | Defina seu usuario:\n");
 		printf("-Limite de 30 caracteres!\n");
@@ -112,10 +113,10 @@ int registraUsuario(){
 		fputs(IDPW, filePointerRegistros);
 		fclose(filePointerRegistros);
 
-		imprimeCabecalho("Registro concluído", true);
+		imprimeEmDestaque("Registro concluído");
 
 	}else{
-		imprimeCabecalho("ERRO: Voce ja esta registrado!", true);
+		imprimeEmDestaque("Voce ja esta registrado!");
 	}
 
 	return 0;
@@ -137,7 +138,7 @@ int logaUsuario(){
 	fgets(IDPW, 60, filePointerRegistros);
 
 	while (strcmp(IDPW,IDPWL) != 0) {
-		imprimeCabecalho("Logue na sua conta:", false);
+		imprimeEmDestaque("Logue na sua conta:");
 		printf("\nUsuario:\n");
 		printf("-> ");
 		scanf("%s",UsuarioL);
@@ -150,11 +151,11 @@ int logaUsuario(){
 		strcat(IDPWL, SenhaL);
 
 		if (strcmp(IDPW,IDPWL) != 0) {
-			imprimeCabecalho("Usuário ou senha inválidos.\n\nTente novamente.", true);
+			imprimeEmDestaque("Usuário ou senha inválidos.\n\nTente novamente.");
 		} 
 	}
 
-	imprimeCabecalho("Login Efetuado!", true);
+	imprimeEmDestaque("Login Efetuado!");
 	
 	
 	return 0;
@@ -168,7 +169,7 @@ int cadastraPaciente(){
 
 	if (filePointerPacientes == NULL){
 
-		imprimeCabecalho("Cadastro de paciente", true);
+		imprimeEmDestaque("Cadastro de paciente");
 
 		limpaStdin();
 
@@ -260,7 +261,7 @@ int cadastraPaciente(){
 		fprintf(filePointerPacientes, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", nome, cpf, telefone, rua, numero, complemento, bairro, cidade, uf, cep, diaNascimento, mesNascimento, anoNascimento, email, data_diagnostico, comorbidade);
 		fclose(filePointerPacientes);
 	}else{
-		imprimeCabecalho("ERRO: Paciente já cadastrado.", true);
+		imprimeEmDestaque("Paciente já cadastrado.");
 	}
 	return 0;
 }
@@ -272,33 +273,73 @@ char retornoRecuperaLinha[50] = "";
 const char * recuperaLinha(int linha){
 
 	char linhaRecuperada[50];
-	int count = 1;
+	int count = 0;
 
 	filePointerPacientes = fopen("pacientes.txt", "r");
 
 	while (fgets(linhaRecuperada, sizeof linhaRecuperada, filePointerPacientes) != NULL){
 		if (count == linha){
 			strcpy(retornoRecuperaLinha, linhaRecuperada);
-			puts(retornoRecuperaLinha);
 		}
 		count++;
 	}
 	return retornoRecuperaLinha;
 }
 
-//calculadora comorbidade
-int calculaComorbidade(){
+// Função para gerar relatório
+int geraRelatorio(){
 
+	imprimeEmDestaque("Relatorio");
 	//variaveis
-	char idadeCalculada[20];
-	char comorbidadeIdentificada[10];
+	int anoNascimento = 0;
+	int idade = 0;
+	int idadeDeRisco = 18; // mudar pra 65 no final
+	int anoAtual = 0;
+	char comorbidadesRegistradas[300];
+	char nome[30] = "";
+	char cep[10] = "";
+
+	time_t s, val = 1;
+	struct tm* current_time;
+	s = time(NULL);
+	current_time = localtime(&s);
+
+	anoAtual = (current_time->tm_year + 1900);
 
 	filePointerPacientes = fopen("pacientes.txt", "r");
 
 	if (filePointerPacientes != NULL){
-		strcpy(comorbidadeIdentificada, recuperaLinha(13));
+		anoNascimento = atoi(recuperaLinha(12));
+		idade = anoAtual - anoNascimento;
+
+		strcpy(comorbidadesRegistradas, recuperaLinha(15));
+		removerNewLine(comorbidadesRegistradas);
+
+		strcpy(nome, recuperaLinha(0));
+		removerNewLine(nome);
+
+		if (strcmp(comorbidadesRegistradas, "nenhuma") == 0){
+			printf("O paciente %s não possui comorbidades.\n", nome);
+		}else{
+			printf("O paciente %s possui as seguintes comorbidades: %s\n", nome, comorbidadesRegistradas);
+		}
+
+		if (idade > idadeDeRisco){
+			strcpy(cep, recuperaLinha(9));
+			removerNewLine(cep);
+
+			printf("O paciente %s pertence ao grupo de risco, idade: %d anos\nGerando relatório...\n", nome, idade);
+
+			filePointerRelatoriopacientes = fopen("relatorioPacientes.txt", "w");
+			fprintf(filePointerRelatoriopacientes, "Nome do paciente: %s\nCEP: %s\nIdade: %d\n", nome, cep, idade);
+			fclose(filePointerRelatoriopacientes);
+
+			printf("Relatório do paciente %s gerado com sucesso", nome);
+		}else{
+			printf("O paciente %s não pertence ao grupo de risco pois possui %d anos, o relatório não será gerado.", nome, idade);
+		}
 	}else{
-		imprimeCabecalho("ERRO: Paciente não cadastrado.", true);
+		imprimeEmDestaque("Paciente não cadastrado.");
 	}
 	return 0;
 }
@@ -306,15 +347,11 @@ int calculaComorbidade(){
 
 // Código Principal.
 int main(){
-	//cadastraPaciente();
-	calculaComorbidade();
 
-	/*
 	//Variaveis para operação de Login ou Registro.
 	int RegistraOuLoga;
-	
-	
-	imprimeCabecalho("AREA DE LOGIN", true);
+
+	imprimeEmDestaque("AREA DE LOGIN");
 	
 	printf("\nDeseja fazer login ou registrar-se?\n\n");
 	printf("Escolha [1] -> para REGISTRAR CONTA\n");
@@ -336,6 +373,7 @@ int main(){
 			break;
 	}
 
-	cadastraPaciente(); */
+	cadastraPaciente();
+	geraRelatorio();
 	return 0;
 }
