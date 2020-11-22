@@ -5,8 +5,8 @@
 
 // Variáveis Globais para registro do paciente
 char nome[100] = "";
-char cpf[11] = "";
-char telefone[15] = "";
+char cpf[20] = "";
+char telefone[20] = "";
 char rua[200] = "";
 char numero[10] = "";
 char complemento[20] = "";
@@ -14,12 +14,12 @@ char bairro[100] = "";
 char cidade[100] = "";
 char uf[50] = "";
 char cep[15] = "";
-char diaNascimento[2] = "";
-char mesNascimento[2] = "";
-char anoNascimento[4] = ""; 
+char diaNascimento[10] = "";
+char mesNascimento[10] = "";
+char anoNascimento[10] = ""; 
 char email[100] = "";
-char data_diagnostico[10] = "";
-char Comorbidade[300] = "";
+char data_diagnostico[15] = "";
+char comorbidade[300] = "";
 
 
 // Variavel do tipo ponteiro que aponta para o arquivo txt dos registros (file_pointer_1).
@@ -139,26 +139,34 @@ int main(){
         printf("\n");
 
         
-        printf("Data do Diagn�stico: ");
+        printf("Data do Diagnostico: ");
         fgets(data_diagnostico, sizeof data_diagnostico, stdin);
         removerNewLine(data_diagnostico);
         printf("\n");
 
-		/* filePointerPacientes = fopen("pacientes.txt", "a");
-		fputs(Nome, filePointerPacientes);
-		fputs(CPF, filePointerPacientes);
-		fputs(Telefone, filePointerPacientes);
-		fputs(Rua, filePointerPacientes);
-		fputs(Numero, filePointerPacientes);
-		fputs(Bairro, filePointerPacientes);
-		fputs(Cidade, filePointerPacientes);
-		fputs(Estado, filePointerPacientes);
-		fputs(CEP, filePointerPacientes);
-		fputs(DataNascimento, filePointerPacientes);
-		fputs(DataDiagnostico, filePointerPacientes);
-		fputs(Email, filePointerPacientes);
-		fputs(Comorbidades, filePointerPacientes);
-		fclose(filePointerPacientes);*/
+        printf("Comorbidades: ");
+        fgets(comorbidade, sizeof comorbidade, stdin);
+        removerNewLine(comorbidade);
+        printf("\n");
+
+		filePointerPacientes = fopen("pacientes.txt", "a");
+		fputs(nome, filePointerPacientes);
+		fputs(cpf, filePointerPacientes);
+		fputs(telefone, filePointerPacientes);
+		fputs(rua, filePointerPacientes);
+		fputs(numero, filePointerPacientes);
+        fputs(complemento, filePointerPacientes);
+		fputs(bairro, filePointerPacientes);
+		fputs(cidade, filePointerPacientes);
+		fputs(uf, filePointerPacientes);
+		fputs(cep, filePointerPacientes);
+		fputs(diaNascimento, filePointerPacientes);
+        fputs(mesNascimento, filePointerPacientes);
+        fputs(anoNascimento, filePointerPacientes);
+		fputs(data_diagnostico, filePointerPacientes);
+		fputs(email, filePointerPacientes);
+		fputs(comorbidade, filePointerPacientes);
+		fclose(filePointerPacientes);
 	}else{
 		imprimeCabecalho("ERRO: Paciente já cadastrado.", true);
 	}
