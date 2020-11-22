@@ -41,6 +41,17 @@ FILE *filePointerRegistros;
 // pacientes
 FILE *filePointerPacientes;
 
+//limpa string
+const char * removeNL(char *s) {
+    while (*s) {
+        if (*s == '\n') {
+            *s=' ';
+        }
+        s++;
+    }
+	return s;
+}
+
 //remover histórico buffer
 void limpaStdin(void)
 {
@@ -266,18 +277,67 @@ int cadastraPaciente(){
 	return 0;
 }
 
+//global 
+char retorno[50] = "";
+
+// recupera linha
+const char * recuperaLinha(int linha){
+
+	char linhaRecuperada[50];
+	char linhaRecuperadaF[50];
+	int count = 1;
+
+	filePointerPacientes = fopen("pacientes.txt", "r");
+	
+	
+	while (fgets(linhaRecuperada, sizeof linhaRecuperada, filePointerPacientes) != NULL)
+		{
+			if (count == linha)
+			{
+				strcpy(linhaRecuperadaF, linhaRecuperada);
+				puts(linhaRecuperadaF);
+			}
+			else
+			{
+				count++;
+			}
+		} 
+		return retorno;
+}
+
 //calculadora comorbidade
 int calculaComorbidade(){
-	if (filePointerPacientes == NULL){
-		
-	}
+
 	
+
+	//variaveis
+	char idadeCalculada[20];
+	char comorbidadeIdentificada[10];
+
+	
+
+	filePointerPacientes = fopen("pacientes.txt", "r");
+
+	if (filePointerPacientes != NULL){
+		
+
+		strcpy(comorbidadeIdentificada, recuperaLinha(13));
+		puts(comorbidadeIdentificada);
+		
+	
+
+	}else{
+		imprimeCabecalho("ERRO: Paciente não cadastrado.", true);
+	}
+	return 0;
 }
 
 
 // Código Principal.
 int main(){
-	
+	calculaComorbidade();
+
+	/*
 	//Variaveis para operação de Login ou Registro.
 	int RegistraOuLoga;
 	
@@ -305,7 +365,8 @@ int main(){
 			break;
 	}
 
-	cadastraPaciente();
+	cadastraPaciente(); */
 
+	
 	return 0;
 }
