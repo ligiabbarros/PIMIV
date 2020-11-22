@@ -257,7 +257,7 @@ int cadastraPaciente(){
 		//grava cada dado em uma linha no arquivo
 		filePointerPacientes = fopen("pacientes.txt", "a");
 
-		fprintf(filePointerPacientes, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", nome, cpf, telefone, rua, numero, complemento, bairro, cidade, uf, cep, diaNascimento, mesNascimento, anoNascimento, data_diagnostico, email, comorbidade);
+		fprintf(filePointerPacientes, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", nome, cpf, telefone, rua, numero, complemento, bairro, cidade, uf, cep, diaNascimento, mesNascimento, anoNascimento, email, data_diagnostico, comorbidade);
 		fclose(filePointerPacientes);
 	}else{
 		imprimeCabecalho("ERRO: Paciente já cadastrado.", true);
