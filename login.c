@@ -43,12 +43,12 @@ FILE *filePointerPacientes;
 
 //limpa string
 const char * removeNL(char *s) {
-    while (*s) {
-        if (*s == '\n') {
-            *s=' ';
-        }
-        s++;
-    }
+	while (*s) {
+		if (*s == '\n') {
+			*s=' ';
+		}
+		s++;
+	}
 	return s;
 }
 
@@ -57,13 +57,13 @@ void limpaStdin(void)
 {
    int c;
    do {
-       c = getchar();
+	   c = getchar();
    } while (c != '\n' && c != EOF);
 }
 
 //funcao pra remover linha 
 void removerNewLine(char* buffer){
-    buffer[strcspn(buffer, "\r\n")] = 0;
+	buffer[strcspn(buffer, "\r\n")] = 0;
 }
 
 // Funcao para imprimir cabeçalho
@@ -172,108 +172,95 @@ int cadastraPaciente(){
 
 		limpaStdin();
 
-	    printf("Digite os dados do paciente\n");
-        printf("Nome: ");
-        fgets(nome, sizeof nome, stdin);
-        removerNewLine(nome);
+		printf("Digite os dados do paciente\n");
+		printf("Nome: ");
+		fgets(nome, sizeof nome, stdin);
+		removerNewLine(nome);
+		printf("\n");
+
+		printf("CPF (sem pontos ou tracos): ");
+		fgets(cpf, sizeof cpf, stdin);
+		removerNewLine(cpf);
+		printf("\n");
+
+		printf("Telefone (sem pontos ou tracos): ");
+		fgets(telefone, sizeof telefone, stdin);
+		removerNewLine(telefone);
+		printf("\n");
 		
-        printf("\n");
+		printf("Digite o endereco do paciente\n");
+		printf("Rua: ");
+		fgets(rua, sizeof rua, stdin);
+		removerNewLine(rua);
+		printf("\n");
 
-        printf("CPF (sem pontos ou tracos): ");
-        fgets(cpf, sizeof cpf, stdin);
-        removerNewLine(cpf);
-        printf("\n");
+		printf("Numero: ");
+		fgets(numero, sizeof numero, stdin);
+		removerNewLine(numero);
+		printf("\n");
 
-        printf("Telefone (sem pontos ou tracos): ");
-        fgets(telefone, sizeof telefone, stdin);
-        removerNewLine(telefone);
-        printf("\n");
+		printf("Complemento: ");
+		fgets(complemento, sizeof complemento, stdin);
+		removerNewLine(complemento);
+		printf("\n");
 
-        
-        printf("Digite o endereco do paciente\n");
-        printf("Rua: ");
-        fgets(rua, sizeof rua, stdin);
-        removerNewLine(rua);
-        printf("\n");
+		printf("Bairro: ");
+		fgets(bairro, sizeof bairro, stdin);
+		removerNewLine(bairro);
+		printf("\n");
 
-        
-        printf("Numero: ");
-        fgets(numero, sizeof numero, stdin);
-        removerNewLine(numero);
-        printf("\n");
+		printf("Cidade: ");
+		fgets(cidade, sizeof cidade, stdin);
+		removerNewLine(cidade);
+		printf("\n");
 
-        
-        printf("Complemento: ");
-        fgets(complemento, sizeof complemento, stdin);
-        removerNewLine(complemento);
-        printf("\n");
+		printf("UF: ");
+		fgets(uf, sizeof uf, stdin);
+		removerNewLine(uf);
+		printf("\n");
 
-        
-        printf("Bairro: ");
-        fgets(bairro, sizeof bairro, stdin);
-        removerNewLine(bairro);
-        printf("\n");
+		printf("CEP (sem pontos ou tracos): ");
+		fgets(cep, sizeof cep, stdin);
+		removerNewLine(cep);
+		printf("\n");
 
-        
-        
-        printf("Cidade: ");
-        fgets(cidade, sizeof cidade, stdin);
-        removerNewLine(cidade);
-        printf("\n");
+		printf("Dia de Nascimento: ");
+		fgets(diaNascimento, sizeof diaNascimento, stdin);
+		removerNewLine(diaNascimento);
+		printf("\n");
+		
+		printf("Mes de Nascimento: ");
+		fgets(mesNascimento, sizeof mesNascimento, stdin);
+		removerNewLine(mesNascimento);
+		printf("\n");
 
-        
-        printf("UF: ");
-        fgets(uf, sizeof uf, stdin);
-        removerNewLine(uf);
-        printf("\n");
+		printf("Ano de Nascimento: ");
+		fgets(anoNascimento, sizeof anoNascimento, stdin);
+		removerNewLine(anoNascimento);
+		printf("\n");
 
-        printf("CEP (sem pontos ou tracos): ");
-        fgets(cep, sizeof cep, stdin);
-        removerNewLine(cep);
-        printf("\n");
+		printf("E-mail: ");
+		fgets(email, sizeof email, stdin);
+		removerNewLine(email);
+		printf("\n");
 
-        printf("Dia de Nascimento: ");
-        fgets(diaNascimento, sizeof diaNascimento, stdin);
-        removerNewLine(diaNascimento);
-        printf("\n");
-        
-        printf("Mes de Nascimento: ");
-        fgets(mesNascimento, sizeof mesNascimento, stdin);
-        removerNewLine(mesNascimento);
-        printf("\n");
+		printf("Data do Diagnostico: ");
+		fgets(data_diagnostico, sizeof data_diagnostico, stdin);
+		removerNewLine(data_diagnostico);
+		printf("\n");
 
-        
-        printf("Ano de Nascimento: ");
-        fgets(anoNascimento, sizeof anoNascimento, stdin);
-        removerNewLine(anoNascimento);
-        printf("\n");
-
-        
-        printf("E-mail: ");
-        fgets(email, sizeof email, stdin);
-        removerNewLine(email);
-        printf("\n");
-
-        
-        printf("Data do Diagnostico: ");
-        fgets(data_diagnostico, sizeof data_diagnostico, stdin);
-        removerNewLine(data_diagnostico);
-        printf("\n");
-
-        printf("Comorbidades: ");
-        fgets(comorbidade, sizeof comorbidade, stdin);
-        removerNewLine(comorbidade);
-        printf("\n");
-
+		printf("Comorbidades: ");
+		fgets(comorbidade, sizeof comorbidade, stdin);
+		removerNewLine(comorbidade);
+		printf("\n");
 
 		//grava cada dado em uma linha no arquivo
 		filePointerPacientes = fopen("pacientes.txt", "a");
 
-        fprintf(filePointerPacientes, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", nome, cpf, telefone, rua, numero, complemento, bairro, cidade, uf, cep, diaNascimento, mesNascimento, anoNascimento, data_diagnostico, email, comorbidade);
+		fprintf(filePointerPacientes, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", nome, cpf, telefone, rua, numero, complemento, bairro, cidade, uf, cep, diaNascimento, mesNascimento, anoNascimento, data_diagnostico, email, comorbidade);
 	}else{
 		imprimeCabecalho("ERRO: Paciente já cadastrado.", true);
 	}
-
 	return 0;
 }
 
@@ -288,8 +275,7 @@ const char * recuperaLinha(int linha){
 	int count = 1;
 
 	filePointerPacientes = fopen("pacientes.txt", "r");
-	
-	
+
 	while (fgets(linhaRecuperada, sizeof linhaRecuperada, filePointerPacientes) != NULL)
 		{
 			if (count == linha)
@@ -308,13 +294,9 @@ const char * recuperaLinha(int linha){
 //calculadora comorbidade
 int calculaComorbidade(){
 
-	
-
 	//variaveis
 	char idadeCalculada[20];
 	char comorbidadeIdentificada[10];
-
-	
 
 	filePointerPacientes = fopen("pacientes.txt", "r");
 
@@ -350,7 +332,6 @@ int main(){
 
 	scanf("%i",&RegistraOuLoga);
 
-
 	// Código das operações de Registro e Login.
 	switch (RegistraOuLoga){
 		case 1:
@@ -366,7 +347,5 @@ int main(){
 	}
 
 	cadastraPaciente(); */
-
-	
 	return 0;
 }
