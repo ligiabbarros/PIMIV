@@ -29,9 +29,11 @@ int recuperarLinha(int linha) {
 // Função para cadastrar paciente 
 int cadastraPaciente() {
 
+
 }
 
 // Função para gerar relatório
 int geraRelatorio() {
+	
 
 }
