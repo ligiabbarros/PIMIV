@@ -272,24 +272,18 @@ char retornoRecuperaLinha[50] = "";
 const char * recuperaLinha(int linha){
 
 	char linhaRecuperada[50];
-	char linhaRecuperadaF[50];
 	int count = 1;
 
 	filePointerPacientes = fopen("pacientes.txt", "r");
 
-	while (fgets(linhaRecuperada, sizeof linhaRecuperada, filePointerPacientes) != NULL)
-		{
-			if (count == linha)
-			{
-				strcpy(retornoRecuperaLinha, linhaRecuperada);
-				puts(retornoRecuperaLinha);
-			}
-			else
-			{
-				count++;
-			}
-		} 
-		return retornoRecuperaLinha;
+	while (fgets(linhaRecuperada, sizeof linhaRecuperada, filePointerPacientes) != NULL){
+		if (count == linha){
+			strcpy(retornoRecuperaLinha, linhaRecuperada);
+			puts(retornoRecuperaLinha);
+		}
+		count++;
+	}
+	return retornoRecuperaLinha;
 }
 
 //calculadora comorbidade
@@ -302,13 +296,7 @@ int calculaComorbidade(){
 	filePointerPacientes = fopen("pacientes.txt", "r");
 
 	if (filePointerPacientes != NULL){
-		
-
 		strcpy(comorbidadeIdentificada, recuperaLinha(13));
-		puts(comorbidadeIdentificada);
-		
-	
-
 	}else{
 		imprimeCabecalho("ERRO: Paciente não cadastrado.", true);
 	}
@@ -318,7 +306,7 @@ int calculaComorbidade(){
 
 // Código Principal.
 int main(){
-	cadastraPaciente();
+	//cadastraPaciente();
 	calculaComorbidade();
 
 	/*
