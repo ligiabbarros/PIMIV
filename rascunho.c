@@ -34,6 +34,49 @@ int cadastraPaciente() {
 
 // Função para gerar relatório
 int geraRelatorio() {
-	
 
+
+}
+
+
+
+
+// Função para 
+int logaUsuario(){
+
+	filePointerRegistros = fopen("registros.txt", "r");
+
+	if (filePointerRegistros == NULL){
+		printf("\nERRO: Nao ha um usuario registrado ainda!\n");
+		printf("Impossivel efetuar LOGIN\n");
+		printf("Iniciando registro...\n");
+		registraUsuario();
+	}
+	
+	filePointerRegistros = fopen("registros.txt", "r");
+	fgets(IDPW, 60, filePointerRegistros);
+
+	while (strcmp(IDPW,IDPWL) != 0) {
+		imprimeCabecalho("Logue na sua conta:", false);
+		printf("\nUsuario:\n");
+		printf("-> ");
+		scanf("%s",UsuarioL);
+		printf("\n");
+		printf("\nSenha:\n");
+		printf("-> ");
+		scanf("%s",SenhaL);
+
+		strcpy(IDPWL, UsuarioL);
+		strcat(IDPWL, SenhaL);
+
+		if (strcmp(IDPW,IDPWL) != 0) {
+			imprimeCabecalho("Usuário ou senha inválidos.\n\nTente novamente.", true);
+		} 
+	}
+
+	imprimeCabecalho("Login Efetuado!", true);
+	
+	
+	return 0;
+	
 }

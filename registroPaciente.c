@@ -150,23 +150,10 @@ int main(){
         printf("\n");
 
 		filePointerPacientes = fopen("pacientes.txt", "a");
-		fputs(nome, filePointerPacientes);
-		fputs(cpf, filePointerPacientes);
-		fputs(telefone, filePointerPacientes);
-		fputs(rua, filePointerPacientes);
-		fputs(numero, filePointerPacientes);
-        fputs(complemento, filePointerPacientes);
-		fputs(bairro, filePointerPacientes);
-		fputs(cidade, filePointerPacientes);
-		fputs(uf, filePointerPacientes);
-		fputs(cep, filePointerPacientes);
-		fputs(diaNascimento, filePointerPacientes);
-        fputs(mesNascimento, filePointerPacientes);
-        fputs(anoNascimento, filePointerPacientes);
-		fputs(data_diagnostico, filePointerPacientes);
-		fputs(email, filePointerPacientes);
-		fputs(comorbidade, filePointerPacientes);
-		fclose(filePointerPacientes);
+
+        fprintf(filePointerPacientes, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", nome, cpf, telefone, rua, numero, complemento, bairro, cidade, uf, cep, diaNascimento, mesNascimento, anoNascimento, data_diagnostico, email, comorbidade);
+		
+     
 	}else{
 		imprimeCabecalho("ERRO: Paciente já cadastrado.", true);
 	}
