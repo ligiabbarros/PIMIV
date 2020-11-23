@@ -35,6 +35,9 @@ char email[100] = "";
 char data_diagnostico[15] = "";
 char comorbidade[300] = "";
 
+//variavel global para recuperar linha
+char retornoRecuperaLinha[50] = "";
+
 // Variavel do tipo ponteiro que aponta para o arquivo txt dos registros.
 FILE *filePointerRegistros;
 
@@ -266,10 +269,7 @@ int cadastraPaciente(){
 	return 0;
 }
 
-//global 
-char retornoRecuperaLinha[50] = "";
-
-// recupera linha
+// funcao para recuperar linha
 const char * recuperaLinha(int linha){
 
 	char linhaRecuperada[50];
@@ -293,7 +293,7 @@ int geraRelatorio(){
 	//variaveis
 	int anoNascimento = 0;
 	int idade = 0;
-	int idadeDeRisco = 18; // mudar pra 65 no final
+	int idadeDeRisco = 65;
 	int anoAtual = 0;
 	char comorbidadesRegistradas[300];
 	char nome[30] = "";
@@ -328,7 +328,7 @@ int geraRelatorio(){
 			strcpy(cep, recuperaLinha(9));
 			removerNewLine(cep);
 
-			printf("O paciente %s pertence ao grupo de risco, idade: %d anos\nGerando relatório...\n", nome, idade);
+			printf("Paciente %s pertence ao grupo de risco, idade: %d anos\nGerando relatório...\n", nome, idade);
 
 			filePointerRelatoriopacientes = fopen("relatorioPacientes.txt", "w");
 			fprintf(filePointerRelatoriopacientes, "Nome do paciente: %s\nCEP: %s\nIdade: %d\n", nome, cep, idade);
@@ -336,7 +336,7 @@ int geraRelatorio(){
 
 			printf("Relatório do paciente %s gerado com sucesso", nome);
 		}else{
-			printf("O paciente %s não pertence ao grupo de risco pois possui %d anos, o relatório não será gerado.", nome, idade);
+			printf("Paciente %s não pertence ao grupo de risco pois possui %d anos, o relatório não será gerado.", nome, idade);
 		}
 	}else{
 		imprimeEmDestaque("Paciente não cadastrado.");
